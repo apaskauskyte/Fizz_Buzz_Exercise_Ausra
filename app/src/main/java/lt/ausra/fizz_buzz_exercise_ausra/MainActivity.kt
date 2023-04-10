@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         val array = ArrayList<String>()
 
-        for (item in cycleStart..cycleEnd) {
+        for (item in cycleStart until cycleEnd) {
             if (item % 3 == 0 && item % 5 == 0) {
                 array.add("FIZZBUZZ")
             } else if (item % 3 == 0) {
