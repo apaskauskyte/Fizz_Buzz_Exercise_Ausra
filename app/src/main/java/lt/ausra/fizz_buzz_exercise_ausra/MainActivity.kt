@@ -2,7 +2,6 @@ package lt.ausra.fizz_buzz_exercise_ausra
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
@@ -12,18 +11,24 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var textListView: ListView
     lateinit var adapter: ArrayAdapter<String>
+    lateinit var clickMeButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        doFizzBuzzTask()
-        doFizzBuzzBonusTask()
+        clickMeButton = findViewById(R.id.clickMeButton)
+
+        doFizzBuzzTask()
+
+        clickMeButton.setOnClickListener {
+            doFizzBuzzBonusTask()
+        }
     }
 
     private fun doFizzBuzzTask() {
 
-        val array = Array(100){"$it"}
+        val array = Array(100) { "$it" }
 
         for (item in 1..100) {
             if (item % 3 == 0 && item % 5 == 0) {
@@ -32,7 +37,8 @@ class MainActivity : AppCompatActivity() {
                 array[item - 1] = "FIZZ"
             } else if (item % 5 == 0) {
                 array[item - 1] = "BUZZ"
-            } else { array[item - 1] = item.toString()
+            } else {
+                array[item - 1] = item.toString()
             }
         }
 
@@ -45,9 +51,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun doFizzBuzzBonusTask() {
 
-        val cycleStart = (-50 until 50).random()
-        val cycleLength = (50 until 150).random()
-        val cycleEnd = cycleLength - abs(cycleStart)
+        val cycleStart = (-50..50).random()
+        val cycleLength = (50..150).random()
+        val cycleEnd: Int = if (cycleStart >= 0) {
+            cycleLength + cycleStart
+        } else {
+            cycleLength - abs(cycleStart)
+        }
 
         val array = ArrayList<String>()
 
@@ -58,7 +68,8 @@ class MainActivity : AppCompatActivity() {
                 array.add("FIZZ")
             } else if (item % 5 == 0) {
                 array.add("BUZZ")
-            } else { array.add(item.toString())
+            } else {
+                array.add(item.toString())
             }
         }
 
